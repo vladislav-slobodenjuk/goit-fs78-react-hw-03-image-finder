@@ -11,7 +11,6 @@ import {
 export class Searchbar extends Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired,
-    // images: PropTypes.array,
   };
 
   state = {
@@ -29,7 +28,12 @@ export class Searchbar extends Component {
     return (
       <>
         <Header>
-          <Form onSubmit={handleSubmit}>
+          <Form
+            onSubmit={e => {
+              handleSubmit(e);
+              this.setState({ search: '' });
+            }}
+          >
             <SearchButton type="submit">
               <SearchButtonLabel>Search</SearchButtonLabel>
             </SearchButton>

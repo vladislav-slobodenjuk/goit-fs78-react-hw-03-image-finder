@@ -13,27 +13,25 @@ export class App extends Component {
 
   handleSubmit = async e => {
     e.preventDefault();
-    // console.log('here it is');
-    // console.log(e.target.search.value.trim());
+
     const search = e.target.search.value.trim();
-    // const images = await getImages(search);
-    // console.log(images);
     this.setState({ search });
   };
+
+  openModal = () => {};
 
   async componentDidUpdate(_, prevState) {
     if (prevState.search !== this.state.search) {
       const images = await getImages(this.state.search);
-
-      // console.log(images);
-
       this.setState({ images });
     }
+
+    // if (prevState.search === this.state.search && ) { }
   }
 
   render() {
     const { images } = this.state;
-    // console.log(images);
+    // console.log('render');
 
     return (
       <Container>

@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 
 import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
-import { List } from './ImageGallery.styled';
+import { GalleryList } from './ImageGallery.styled';
 
 export function ImageGallery({ images }) {
   return (
-    <List>
+    <GalleryList>
       {images.map(({ id, tags, webformatURL, largeImageURL }) => (
         <ImageGalleryItem
           key={id}
@@ -14,7 +14,7 @@ export function ImageGallery({ images }) {
           large={largeImageURL}
         />
       ))}
-    </List>
+    </GalleryList>
   );
 }
 

@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
+import { Img, Item } from './ImageGalleryItem.styled';
 
-export function ImageGalleryItem({ src, tags }) {
+export function ImageGalleryItem({ src, tags, large }) {
   return (
-    <li>
-      <img src={src} alt={`${tags}`} />
-    </li>
+    <Item onClick={() => console.log(large)}>
+      <Img src={src} alt={`${tags}`} />
+    </Item>
   );
 }
 
