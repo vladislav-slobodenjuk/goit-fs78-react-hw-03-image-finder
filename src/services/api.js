@@ -1,13 +1,5 @@
 import axios from 'axios';
 
-// const options = {
-//   page: 1,
-//   key: '24000598-4cbb5e18617bf8e66757f824b',
-//   image_type: 'photo',
-//   orientation: 'horizontal',
-//   per_page: 12,
-// };
-
 export const PER_PAGE = 12;
 
 const instance = axios.create({

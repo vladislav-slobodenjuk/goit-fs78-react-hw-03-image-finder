@@ -18,8 +18,8 @@ export class Modal extends Component {
   componentDidMount() {
     window.addEventListener('keydown', this.handleKeyDown);
 
-    document.body.style.height = '100vh';
-    document.body.style.overflow = 'hidden';
+    // document.body.style.height = '100vh';
+    // document.body.style.overflowY = 'hidden';
   }
 
   componentWillUnmount() {

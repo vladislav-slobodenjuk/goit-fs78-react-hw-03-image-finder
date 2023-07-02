@@ -43,7 +43,11 @@ export class App extends Component {
   };
 
   async componentDidUpdate(_, prevState) {
-    const { search, page } = this.state;
+    const { search, page, images } = this.state;
+
+    if (prevState.images < images && page !== 1) {
+      window.scrollBy({ top: 520, behavior: 'smooth' });
+    }
 
     if (prevState.search !== search) {
       try {
@@ -58,7 +62,6 @@ export class App extends Component {
       } catch (error) {
         this.setState({ error });
         console.log(error.message);
-        //show notification
       } finally {
         this.setState({ isLoading: false });
       }
@@ -74,7 +77,6 @@ export class App extends Component {
       } catch (error) {
         this.setState({ error });
         console.log(error.message);
-        //show notification
       } finally {
         this.setState({ isLoading: false });
       }
