@@ -7,6 +7,7 @@ import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { Button } from 'components/Button/Button';
 import { Modal } from 'components/Modal/Modal';
 import { Loader } from 'components/Loader/Loader';
+import { Notification } from './Notification/Notification';
 
 export class App extends Component {
   state = {
@@ -81,7 +82,8 @@ export class App extends Component {
   }
 
   render() {
-    const { images, modal, isLoading, page, totalPages } = this.state;
+    const { search, images, modal, isLoading, page, totalPages, error } =
+      this.state;
     // console.log('render');
 
     return (
@@ -93,12 +95,26 @@ export class App extends Component {
           <Button text="Load more" onButtonClick={this.loadMore} />
         )}
 
-        {page === totalPages && page !== 1 && <p>That's all</p>}
-
         {isLoading && <Loader />}
 
         {modal.isOpen && (
           <Modal img={modal.img} onCloseModal={this.closeModal} />
+        )}
+
+        {search.length === 0 && (
+          <Notification text="Come on, look for something" />
+        )}
+
+        {search.length !== 0 && images.length === 0 && !isLoading && !error && (
+          <Notification text="Nothing found 😔" />
+        )}
+
+        {error && (
+          <Notification text="Oops, something went wrong 😬 Try again later" />
+        )}
+
+        {page === totalPages && page !== 1 && (
+          <Notification text="That's all for now" />
         )}
       </Container>
     );
