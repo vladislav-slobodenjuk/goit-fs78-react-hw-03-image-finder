@@ -6,6 +6,7 @@ import { Searchbar } from 'components/Searchbar/Searchbar';
 import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { Button } from 'components/Button/Button';
 import { Modal } from 'components/Modal/Modal';
+import { Loader } from 'components/Loader/Loader';
 
 export class App extends Component {
   state = {
@@ -14,6 +15,7 @@ export class App extends Component {
     images: [],
     modal: { isOpen: false, img: null },
     error: null,
+    isLoading: false,
   };
 
   handleSubmit = async e => {
@@ -41,44 +43,52 @@ export class App extends Component {
 
     if (prevState.search !== search) {
       try {
-        //show loader
+        this.setState({ isLoading: true });
+
         const images = await getImages(search, page);
         this.setState({ images });
+        //
       } catch (error) {
         this.setState({ error });
         console.log(error.message);
         //show notification
       } finally {
-        //hide loader
+        this.setState({ isLoading: false });
       }
     }
 
     if (prevState.page !== page && page !== 1) {
       try {
-        //show loader
+        this.setState({ isLoading: true });
+
         const images = await getImages(search, page);
         this.setState({ images: [...prevState.images, ...images] });
+        //
       } catch (error) {
         this.setState({ error });
         console.log(error.message);
         //show notification
       } finally {
-        //hide loader
+        this.setState({ isLoading: false });
       }
     }
   }
 
   render() {
-    const { images, modal } = this.state;
+    const { images, modal, isLoading } = this.state;
     // console.log('render');
 
     return (
       <Container>
         <Searchbar handleSubmit={this.handleSubmit} />
         <ImageGallery images={images} onImgClick={this.openModal} />
+
         {images.length > 0 && (
           <Button text="Load more" onButtonClick={this.loadMore} />
         )}
+
+        {isLoading && <Loader />}
+
         {modal.isOpen && (
           <Modal img={modal.img} onCloseModal={this.closeModal} />
         )}
@@ -86,4 +96,3 @@ export class App extends Component {
     );
   }
 }
-// Modal;
