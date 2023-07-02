@@ -6,8 +6,6 @@ export const Container = styled.div`
   grid-gap: 16px;
   padding-bottom: 24px;
 
-  /* padding-top: 20px; */
-  /* padding-bottom: 20px; */
   margin-right: auto;
   margin-left: auto;
   width: 370px;
