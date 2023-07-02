@@ -7,7 +7,7 @@ import { ImageGallery } from 'components/ImageGallery/ImageGallery';
 import { Button } from 'components/Button/Button';
 import { Modal } from 'components/Modal/Modal';
 import { Loader } from 'components/Loader/Loader';
-import { Notification } from './Notification/Notification';
+import { Notification } from '../Notification/Notification';
 
 export class App extends Component {
   state = {
