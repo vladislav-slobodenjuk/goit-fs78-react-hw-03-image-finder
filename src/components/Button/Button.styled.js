@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const StyledButton = styled.div`
+  justify-self: center; // !!!
+
   display: inline-block;
   padding: 8px 16px;
   min-width: 180px;

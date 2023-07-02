@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { getImages } from 'services/api';
+import { PER_PAGE, getImages } from 'services/api';
 
 import { Container } from './App.styled';
 import { Searchbar } from 'components/Searchbar/Searchbar';
@@ -12,6 +12,7 @@ export class App extends Component {
   state = {
     search: '',
     page: 1,
+    totalPages: 1,
     images: [],
     modal: { isOpen: false, img: null },
     error: null,
@@ -20,10 +21,12 @@ export class App extends Component {
 
   handleSubmit = async e => {
     e.preventDefault();
-    const search = e.target.search.value.trim();
+    const querry = e.target.search.value.trim();
 
-    if (search.length === 0) return console.log('empty qerry');
-    this.setState({ search, page: 1 });
+    if (querry.length === 0) return console.log('empty querry');
+    if (querry === this.state.search) return console.log('same querry');
+
+    this.setState({ search: querry, page: 1, totalPages: 1 });
   };
 
   openModal = img => {
@@ -45,8 +48,11 @@ export class App extends Component {
       try {
         this.setState({ isLoading: true });
 
-        const images = await getImages(search, page);
-        this.setState({ images });
+        const { hits, totalHits } = await getImages(search, page);
+        this.setState({
+          images: hits,
+          totalPages: Math.ceil(totalHits / PER_PAGE),
+        });
         //
       } catch (error) {
         this.setState({ error });
@@ -61,8 +67,8 @@ export class App extends Component {
       try {
         this.setState({ isLoading: true });
 
-        const images = await getImages(search, page);
-        this.setState({ images: [...prevState.images, ...images] });
+        const { hits } = await getImages(search, page);
+        this.setState({ images: [...prevState.images, ...hits] });
         //
       } catch (error) {
         this.setState({ error });
@@ -75,7 +81,7 @@ export class App extends Component {
   }
 
   render() {
-    const { images, modal, isLoading } = this.state;
+    const { images, modal, isLoading, page, totalPages } = this.state;
     // console.log('render');
 
     return (
@@ -83,9 +89,11 @@ export class App extends Component {
         <Searchbar handleSubmit={this.handleSubmit} />
         <ImageGallery images={images} onImgClick={this.openModal} />
 
-        {images.length > 0 && (
+        {images.length > 0 && page < totalPages && (
           <Button text="Load more" onButtonClick={this.loadMore} />
         )}
+
+        {page === totalPages && page !== 1 && <p>That's all</p>}
 
         {isLoading && <Loader />}
 

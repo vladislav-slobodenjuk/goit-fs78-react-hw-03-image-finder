@@ -4,7 +4,7 @@ import { Img, Item } from './ImageGalleryItem.styled';
 export const ImageGalleryItem = ({ src, tags, large, onImgClick }) => {
   return (
     <Item onClick={() => onImgClick({ large, tags })}>
-      <Img src={src} alt={`${tags}`} />
+      <Img src={src} alt={`${tags}`} loading="lazy" />
     </Item>
   );
 };
