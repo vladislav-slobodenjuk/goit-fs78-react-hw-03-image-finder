@@ -25,8 +25,9 @@ export class Modal extends Component {
   componentWillUnmount() {
     window.removeEventListener('keydown', this.handleKeyDown);
 
-    document.body.style.height = 'unset';
-    document.body.style.overflow = 'unset';
+    // document.body.style.height = 'unset';
+    // document.body.style.overflow = 'unset';
+    document.body.removeAttribute('style');
   }
 
   render() {

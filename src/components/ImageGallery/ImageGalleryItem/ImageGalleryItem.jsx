@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types';
 import { Img, Item } from './ImageGalleryItem.styled';
 
-export function ImageGalleryItem({ src, tags, large, onImgClick }) {
+export const ImageGalleryItem = ({ src, tags, large, onImgClick }) => {
   return (
     <Item onClick={() => onImgClick({ large, tags })}>
       <Img src={src} alt={`${tags}`} />
     </Item>
   );
-}
+};
 
 ImageGalleryItem.propTypes = {
   src: PropTypes.string.isRequired,
