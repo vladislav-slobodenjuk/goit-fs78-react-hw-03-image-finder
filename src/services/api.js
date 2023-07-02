@@ -20,7 +20,6 @@ const instance = axios.create({
 });
 
 export const getImages = async (q, page = 1) => {
-  //
   const { data } = await instance.get('', { params: { q, page } });
   return data.hits;
 };

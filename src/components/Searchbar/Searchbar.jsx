@@ -9,12 +9,8 @@ import {
 } from './Searchbar.styled';
 
 export class Searchbar extends Component {
-  static propTypes = {
-    handleSubmit: PropTypes.func.isRequired,
-  };
-
   state = {
-    search: 'dog',
+    search: '',
   };
 
   handleInputChange = ({ target }) => {
@@ -26,30 +22,32 @@ export class Searchbar extends Component {
     const { handleSubmit } = this.props;
 
     return (
-      <>
-        <Header>
-          <Form
-            onSubmit={e => {
-              handleSubmit(e);
-              this.setState({ search: '' });
-            }}
-          >
-            <SearchButton type="submit">
-              <SearchButtonLabel>Search</SearchButtonLabel>
-            </SearchButton>
+      <Header>
+        <Form
+          onSubmit={e => {
+            handleSubmit(e);
+            this.setState({ search: '' });
+          }}
+        >
+          <SearchButton type="submit">
+            <SearchButtonLabel>Search</SearchButtonLabel>
+          </SearchButton>
 
-            <SearchInput
-              type="text"
-              autoComplete="off"
-              autoFocus
-              placeholder="Search images and photos"
-              name="search"
-              value={search}
-              onChange={this.handleInputChange}
-            />
-          </Form>
-        </Header>
-      </>
+          <SearchInput
+            type="text"
+            autoComplete="off"
+            autoFocus
+            placeholder="Search images and photos"
+            name="search"
+            value={search}
+            onChange={this.handleInputChange}
+          />
+        </Form>
+      </Header>
     );
   }
 }
+
+Searchbar.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+};
